@@ -37,6 +37,9 @@ public class Menu<S extends MenuSession> {
     @Getter
     @Setter
     private boolean lockUserInventory = true;
+    @Getter
+    @Setter
+    private boolean stickiness;
 
     private final List<Consumer<S>> openCallbacks = new ArrayList<>();
     private final List<Consumer<S>> closeCallbacks = new ArrayList<>();
@@ -88,6 +91,7 @@ public class Menu<S extends MenuSession> {
             val click = new MenuClick(clickType, slot);
             //noinspection unchecked,rawtypes
             item.getClickHandlers().forEach(handler -> ((MenuClickHandler) handler).handle(session, click));
+            return item.isStickiness();
         }
         return true;
     }
@@ -162,7 +166,7 @@ public class Menu<S extends MenuSession> {
         private Function<S, String> titleGenerator = session -> "Меню";
         private final List<ContentProvider<S>> contentProviders = new ArrayList<>();
 
-        private boolean lockUserInventory = true;
+        private boolean lockUserInventory = true, stickiness = true;
 
         private final List<Consumer<S>> openCallbacks = new ArrayList<>();
         private final List<Consumer<S>> closeCallbacks = new ArrayList<>();
@@ -189,6 +193,11 @@ public class Menu<S extends MenuSession> {
 
         public Builder<S> title(String title) {
             this.titleGenerator = session -> title;
+            return this;
+        }
+
+        public Builder<S> disableStickiness() {
+            this.stickiness = false;
             return this;
         }
 
@@ -279,6 +288,7 @@ public class Menu<S extends MenuSession> {
             menu.setTitleGenerator(titleGenerator);
             contentProviders.forEach(menu::addContentProvider);
             menu.setLockUserInventory(lockUserInventory);
+            menu.setStickiness(stickiness);
 
             openCallbacks.forEach(menu::onOpen);
             closeCallbacks.forEach(menu::onClose);

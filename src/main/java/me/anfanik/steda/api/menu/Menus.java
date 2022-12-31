@@ -101,7 +101,7 @@ public class Menus implements Listener {
         if (Menus.isMenu(topInventory) && inventory instanceof PlayerInventory) {
             MenuSession session = Menus.getSession(topInventory);
             Menu menu = session.getMenu();
-            event.setCancelled(menu.isLockUserInventory());
+            event.setCancelled(menu.isLockUserInventory() || menu.isStickiness());
             menu.processPlayerInventoryClick(session, event.getClick(), event.getSlot());
         }
     }

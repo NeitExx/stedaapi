@@ -1,6 +1,7 @@
 package me.anfanik.steda.api.menu.item;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import me.anfanik.steda.api.menu.MenuSession;
 import me.anfanik.steda.api.menu.click.MenuClickHandler;
@@ -16,6 +17,8 @@ public class StaticMenuItem implements MenuItem {
 
     private final ItemStack icon;
     private final List<MenuClickHandler<?>> clickHandlers;
+    @Getter
+    private boolean stickiness = true;
 
     @Override
     public ItemStack getIcon(MenuSession session) {
@@ -25,6 +28,18 @@ public class StaticMenuItem implements MenuItem {
     @Override
     public Collection<MenuClickHandler<?>> getClickHandlers() {
         return Collections.unmodifiableList(clickHandlers);
+    }
+
+    @Override
+    public MenuItem disableStickiness() {
+        this.stickiness = false;
+        return this;
+    }
+
+    @Override
+    public MenuItem enableStickiness() {
+        this.stickiness = true;
+        return this;
     }
 
 }

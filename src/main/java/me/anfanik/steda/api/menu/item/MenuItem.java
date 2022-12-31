@@ -24,6 +24,12 @@ public interface MenuItem {
         return new DynamicMenuItem((Function<MenuSession, ItemStack>) iconGenerator, Arrays.asList(clickHandlers));
     }
 
+    MenuItem disableStickiness();
+
+    MenuItem enableStickiness();
+
+    boolean isStickiness();
+
     ItemStack getIcon(MenuSession session);
 
     Collection<MenuClickHandler<?>> getClickHandlers();
