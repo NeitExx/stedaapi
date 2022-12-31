@@ -11,22 +11,16 @@ repositories {
     maven {
         url 'https://repository.anfanik.me/public/'
     }
-    maven {
-        url 'https://repository.anfanik.me/private/'
-        credentials {
-            username System.getenv("A5K_USERNAME")
-            password System.getenv("A5K_PASSWORD")
-        }
-    }
+    mavenLocal()
 }
 
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.18'
     annotationProcessor 'org.projectlombok:lombok:1.18.18'
 
-    implementation 'me.anfanik:The_Seed:1.0'
-    implementation 'me.anfanik:DatabaseAPI:1.0'
     compileOnly 'me.anfanik:sharkly:1.0'
+
+    compileOnly 'org.jetbrains:annotations:23.0.0'
 
     compileOnly files(
             '.library/spigot-1.12-R0.1-SNAPSHOT.jar',
@@ -35,8 +29,7 @@ dependencies {
             '.library/spigot-1.13.1-R0.1-SNAPSHOT.jar',
             '.library/spigot-1.16.1-R0.1-SNAPSHOT.jar',
             '.library/spigot-1.16.2-R0.1-SNAPSHOT.jar',
-            '.library/spigot-1.16.4-R0.1-SNAPSHOT.jar'//,
-            //'.library/spigot-1.17-R0.1-SNAPSHOT.jar'
+            '.library/spigot-1.16.4-R0.1-SNAPSHOT.jar'
     )
 }
 
@@ -50,15 +43,6 @@ tasks.with {
 }
 
 publishing {
-    repositories {
-        maven {
-            url = 'https://repository.anfanik.me/public/'
-            credentials {
-                username System.getenv('A5K_USERNAME')
-                password System.getenv('A5K_PASSWORD')
-            }
-        }
-    }
     publications {
         maven(MavenPublication) {
             groupId project.group
