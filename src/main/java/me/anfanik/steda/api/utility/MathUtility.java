@@ -7,14 +7,17 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MathUtility {
 
     public static float randomInRange(float min, float max) {
+        if (min == max) return min;
         return min + ThreadLocalRandom.current().nextFloat() * (max - min);
     }
 
     public static int randomInRange(int min, int max) {
+        if (min == max) return min;
         return ThreadLocalRandom.current().nextInt((max - min) + 1) + min;
     }
 
     public static double randomInRange(double min, double max) {
+        if (min == max) return min;
         return Math.random() < 0.5 ? ((1 - Math.random()) * (max - min) + min) : (Math.random() * (max - min) + min);
     }
 

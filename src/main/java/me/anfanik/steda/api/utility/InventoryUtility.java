@@ -40,15 +40,19 @@ public final class InventoryUtility {
     }
 
     public static boolean removeFromMainHand(@NotNull final PlayerInventory inventory, final int amount) {
-        val itemInHand = inventory.getItemInMainHand();
+        val slot = inventory.getHeldItemSlot();
+
+        val itemInHand = inventory.getItem(slot);
+        if (itemInHand == null) return false;
+
         val amountInHand = itemInHand.getAmount();
 
         if (amountInHand > amount) {
             itemInHand.setAmount(amountInHand - amount);
-            inventory.setItemInMainHand(itemInHand);
+            inventory.setItem(slot, itemInHand);
             return true;
         } else if (amountInHand == amount) {
-            inventory.setItemInMainHand(null);
+            inventory.setItem(slot, new ItemStack(Material.AIR));
             return true;
         }
 

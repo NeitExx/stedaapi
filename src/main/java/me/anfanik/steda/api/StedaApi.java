@@ -15,7 +15,7 @@ public class StedaApi {
         val pluginManager = Bukkit.getPluginManager();
         Menus.initialize(plugin);
         new ChatInputService(plugin, pluginManager);
-        new PingCommand();
+        //new PingCommand();
 
         if (pluginManager.getPlugin("Sharkly") != null) {
             plugin.getLogger().info("Initializing integration with Sharkly.");
